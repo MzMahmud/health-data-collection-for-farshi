@@ -48,9 +48,11 @@ bloodPressureLowInput.addEventListener('input', () => setBloodPressureStatus());
 const successAlertDiv = document.getElementById('successAlert');
 
 function saveInLocalStorage(data) {
+    data.date = new Date().toString();
+
     const dataList = getDataList();
-    data.date = new Date();
     dataList.push(data);
+
     localStorage.setItem(healthDataStoreName, JSON.stringify(dataList));
     successAlertDiv.classList.remove('d-none');
 
