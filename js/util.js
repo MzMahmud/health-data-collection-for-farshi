@@ -49,6 +49,8 @@ function getBloodPressureStatus(low, high) {
     return "Normal";
 }
 
+const healthDataStoreName = "healthDataStoreName";
+
 function getDataList() {
     return JSON.parse(localStorage.getItem(healthDataStoreName) ?? "[]");
 }

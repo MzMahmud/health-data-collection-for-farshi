@@ -1,4 +1,17 @@
 const healthDataForm = document.getElementById('health-data-form');
+const heightInput = document.getElementById('height');
+const weightInput = document.getElementById('weight');
+const bmiInput = document.getElementById("bmi");
+const ageInput = document.getElementById("age");
+const nutritionalStatusInput = document.getElementById("nutritionalStatus");
+const bloodPressureLowInput = document.getElementById("bloodPressureLow");
+const bloodPressureHighInput = document.getElementById("bloodPressureHigh");
+const bloodPressureStatusInput = document.getElementById("bloodPressureStatus");
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    ageInput.focus();
+});
 
 healthDataForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -11,17 +24,6 @@ healthDataForm.addEventListener('submit', async (event) => {
     console.debug(data);
     saveInLocalStorage(data);
 });
-
-
-
-const heightInput = document.getElementById('height');
-const weightInput = document.getElementById('weight');
-const bmiInput = document.getElementById("bmi");
-const nutritionalStatusInput = document.getElementById("nutritionalStatus");
-const bloodPressureLowInput = document.getElementById("bloodPressureLow");
-const bloodPressureHighInput = document.getElementById("bloodPressureHigh");
-const bloodPressureStatusInput = document.getElementById("bloodPressureStatus");
-
 
 
 function setBmi() {
@@ -43,10 +45,6 @@ weightInput.addEventListener('input', () => setBmi());
 bloodPressureHighInput.addEventListener('input', () => setBloodPressureStatus());
 bloodPressureLowInput.addEventListener('input', () => setBloodPressureStatus());
 
-
-
-
-const healthDataStoreName = "healthDataStoreName";
 const successAlertDiv = document.getElementById('successAlert');
 
 function saveInLocalStorage(data) {
@@ -59,31 +57,6 @@ function saveInLocalStorage(data) {
     setTimeout(() => {
         successAlertDiv.classList.add('d-none');
         healthDataForm.reset();
+        ageInput.focus();
     }, 1000);
 }
-
-
-
-const locationInput = document.getElementById("location");
-
-function downloadCsvFile(csvString, fileName) {
-    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement("a");
-    link.setAttribute("href", URL.createObjectURL(blob));
-    link.setAttribute("download", `${fileName}.csv`);
-    link.style.visibility = 'hidden';
-    link.click();
-}
-
-document.getElementById("download-btn").addEventListener("click", () => {
-    const dataList = getDataList();
-    downloadObjectAsJson(
-        dataList,
-        locationInput.value
-    );
-    downloadCsvFile(
-        convertToCsvString(dataList),
-        locationInput.value
-    );
-});
-
