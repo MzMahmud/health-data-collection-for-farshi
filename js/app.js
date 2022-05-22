@@ -7,10 +7,19 @@ const nutritionalStatusInput = document.getElementById("nutritionalStatus");
 const bloodPressureLowInput = document.getElementById("bloodPressureLow");
 const bloodPressureHighInput = document.getElementById("bloodPressureHigh");
 const bloodPressureStatusInput = document.getElementById("bloodPressureStatus");
+const eventDateInput = document.getElementById("eventDate");
+const locationInput = document.getElementById("location");
 
+
+function resetForm() {
+    healthDataForm.reset();
+    locationInput.value = "rakin_city_mirpur_13";
+    eventDateInput.value = new Date().toJSON().split('T')[0];
+    ageInput.focus();
+}
 
 document.addEventListener("DOMContentLoaded", function () {
-    ageInput.focus();
+    resetForm();
 });
 
 healthDataForm.addEventListener('submit', async (event) => {
@@ -48,7 +57,7 @@ bloodPressureLowInput.addEventListener('input', () => setBloodPressureStatus());
 const successAlertDiv = document.getElementById('successAlert');
 
 function saveInLocalStorage(data) {
-    data.date = new Date().toString();
+    data.dataInsertionTime = new Date().toString();
 
     const dataList = getDataList();
     dataList.push(data);
@@ -58,7 +67,6 @@ function saveInLocalStorage(data) {
 
     setTimeout(() => {
         successAlertDiv.classList.add('d-none');
-        healthDataForm.reset();
-        ageInput.focus();
+        resetForm();
     }, 1000);
 }
