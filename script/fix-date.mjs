@@ -5,13 +5,11 @@ let dataList = JSON.parse(rawdata);
 
 console.log(dataList.length);
 
-function addHours(numOfHours, date = new Date()) {
-    date.setTime(date.getTime() + numOfHours * 60 * 60 * 1000);
-    return date;
-}
-
 dataList.forEach(data => {
     data.date = new Date(data.date).toString();
+    data.eventDate = '2022-05-20';
+    data.dataInsertionTime = data.date;
+    delete data.date;
 });
 
-fs.writeFileSync('rakin_city_mirpur_13_20_may_2022_date_fixed.json', JSON.stringify(dataList));
+fs.writeFileSync('rakin_city_mirpur_13_20_may_2022_fixed.json', JSON.stringify(dataList));
