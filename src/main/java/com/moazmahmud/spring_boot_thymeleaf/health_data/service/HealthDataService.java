@@ -99,9 +99,21 @@ public class HealthDataService {
     }
 
     @Transactional(readOnly = true)
+    protected List<HealthData> getEntityList() {
+        return healthDataRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<HealthDataAddRequest> getAddRequestList() {
+        return getEntityList()
+                .stream()
+                .map(this::getAddRequestFromEntity)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    @Transactional(readOnly = true)
     public List<HealthDataSearchResponse> getSearchResponseList() {
-        return healthDataRepository
-                .findAll()
+        return getEntityList()
                 .stream()
                 .map(this::mapEntityToSearchResponse)
                 .collect(Collectors.toUnmodifiableList());

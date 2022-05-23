@@ -30,4 +30,12 @@ public class HealthDataRestController extends BaseRestController {
                 .payload(healthDataService.getSearchResponseList())
                 .build();
     }
+
+    @GetMapping("/raw-data")
+    public RestResponse getHealthData() {
+        return RestResponse
+                .builder()
+                .payload(healthDataService.getAddRequestList())
+                .build();
+    }
 }

@@ -2,7 +2,6 @@ const dataTable = document.getElementById("data-table");
 const dataTableBody = dataTable.querySelector("tbody");
 const noDataFoundDiv = document.getElementById("no-data-found");
 const downloadBtn = document.getElementById("download-btn");
-let healthDataSearchResponseList = [];
 
 function getTableRow(healthDataSearchResponse, index) {
     return `
@@ -22,11 +21,10 @@ function getTableRow(healthDataSearchResponse, index) {
 
 async function showDataInTable() {
     try {
-        healthDataSearchResponseList = await AjaxUtil.getPayload("/api/v1/health-data");
+        const healthDataSearchResponseList = await AjaxUtil.getPayload("/api/v1/health-data");
         const hasData = Array.isArray(healthDataSearchResponseList)
                         && healthDataSearchResponseList.length > 0;
         if (!hasData) {
-            healthDataSearchResponseList = [];
             return;
         }
         dataTableBody.innerHTML = healthDataSearchResponseList.map(getTableRow).join("");
@@ -34,7 +32,6 @@ async function showDataInTable() {
         downloadBtn.disabled = false;
         showElement(dataTable);
     } catch (error) {
-        healthDataSearchResponseList = [];
         console.error(error);
     }
 }
@@ -54,18 +51,25 @@ function downloadCsvFile(csvString, fileName) {
     link.click();
 }
 
-downloadBtn.addEventListener("click", () => {
-    if (!healthDataSearchResponseList) {
-        console.error("healthDataSearchResponseList is Empty");
-        return;
+downloadBtn.addEventListener("click", async () => {
+    try {
+        const healthDataList = await AjaxUtil.getPayload("/api/v1/health-data/raw-data");
+        const hasData = Array.isArray(healthDataList)
+                        && healthDataList.length > 0;
+        if (!hasData) {
+            console.error("healthDataList has no data");
+            return;
+        }
+        const fileName = "health_data";
+        downloadObjectAsJson(
+            healthDataList,
+            fileName
+        );
+        downloadCsvFile(
+            convertToCsvString(healthDataList),
+            fileName
+        );
+    } catch (error) {
+        console.error(error);
     }
-    const fileName = "health_data";
-    downloadObjectAsJson(
-        healthDataSearchResponseList,
-        fileName
-    );
-    downloadCsvFile(
-        convertToCsvString(healthDataSearchResponseList),
-        fileName
-    );
 });
