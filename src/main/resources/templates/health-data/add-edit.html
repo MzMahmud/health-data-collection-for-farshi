@@ -113,25 +113,19 @@
     <div class="col-md-4">
         <label class="form-label">Carb Intake Frequency</label>
         <div class="pt-2">
-            <div class="form-check">
-                <input id="oneTwo" value="oneTwo" name="carbIntakeFrequency" type="radio"
+            <div th:each="carbIntakeFrequency :  ${carbIntakeFrequencyList}"
+                    class="form-check">
+                <input th:id="|carbIntakeFrequency-${carbIntakeFrequency}|"
+                       th:value="${carbIntakeFrequency}"
+                       th:field="*{carbIntakeFrequency}"
+                       type="radio"
                        class="form-check-input">
-                <label class="form-check-label" for="oneTwo">1-2 Times</label>
-            </div>
-            <div class="form-check">
-                <input id="twoThree" value="twoThree" name="carbIntakeFrequency" type="radio" checked
-                       class="form-check-input">
-                <label class="form-check-label" for="twoThree">2-3 Times</label>
-            </div>
-            <div class="form-check">
-                <input id="threeFour" value="threeFour" name="carbIntakeFrequency" type="radio"
-                       class="form-check-input">
-                <label class="form-check-label" for="threeFour">3-4 Times</label>
-            </div>
-            <div class="form-check">
-                <input id="moreThanFour" value="moreThanFour" name="carbIntakeFrequency" type="radio"
-                       class="form-check-input">
-                <label class="form-check-label" for="moreThanFour">More Than 4</label>
+                <label class="form-check-label"
+                       th:for="|carbIntakeFrequency-${carbIntakeFrequency}|"
+                       th:text="${carbIntakeFrequency.text}"
+                >
+                    ${carbIntakeFrequency.text}
+                </label>
             </div>
         </div>
     </div>

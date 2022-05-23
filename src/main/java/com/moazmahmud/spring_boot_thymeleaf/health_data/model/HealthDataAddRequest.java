@@ -22,6 +22,7 @@ public class HealthDataAddRequest {
     private Double bloodPressureDiastolicInMmHg;
     private Double bloodSugarInMilliMolePerL;
     private PhysicalActivity physicalActivity;
+    private CarbIntakeFrequency carbIntakeFrequency;
 
     public static HealthDataAddRequest getEmptyInstance() {
         var healthDataAddRequest = new HealthDataAddRequest();
@@ -30,6 +31,7 @@ public class HealthDataAddRequest {
         healthDataAddRequest.gender = Gender.MALE;
         healthDataAddRequest.religion = Religion.ISLAM;
         healthDataAddRequest.physicalActivity = PhysicalActivity.LIGHT_ACTIVITY;
+        healthDataAddRequest.carbIntakeFrequency = CarbIntakeFrequency.ONE_TWO_TIMES;
         return healthDataAddRequest;
     }
 }

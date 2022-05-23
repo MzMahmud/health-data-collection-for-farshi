@@ -3,6 +3,7 @@ package com.moazmahmud.spring_boot_thymeleaf.health_data.entity;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Gender;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Religion;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.BloodPressure;
+import com.moazmahmud.spring_boot_thymeleaf.health_data.model.CarbIntakeFrequency;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.PhysicalActivity;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,4 +61,8 @@ public class HealthData {
     @Column(name = "physical_activity")
     @Enumerated(STRING)
     private PhysicalActivity physicalActivity;
+
+    @Column(name = "carb_intake_frequency")
+    @Enumerated(STRING)
+    private CarbIntakeFrequency carbIntakeFrequency;
 }
