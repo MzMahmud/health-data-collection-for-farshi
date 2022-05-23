@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public final class StringUtil {
     private StringUtil() {}
 
-    private static final String DEFAULT_DATE_FORMAT = "dd MM, yyyy";
+    private static final String DEFAULT_DATE_FORMAT = "dd MMMM, yyyy";
 
     public static String getFormattedDate(LocalDate localDate) {
         if(localDate == null) {
