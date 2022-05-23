@@ -50,6 +50,7 @@ public class HealthDataService {
         healthData.setBloodPressure(bloodPressure);
 
         healthData.setBloodSugarInMilliMolePerL(healthDataAddRequest.getBloodSugarInMilliMolePerL());
+        healthData.setPhysicalActivity(healthDataAddRequest.getPhysicalActivity());
     }
 
     private HealthDataAddRequest getAddRequestFromEntity(HealthData healthData) {

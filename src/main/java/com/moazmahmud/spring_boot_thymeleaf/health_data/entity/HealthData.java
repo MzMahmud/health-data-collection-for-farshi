@@ -3,6 +3,7 @@ package com.moazmahmud.spring_boot_thymeleaf.health_data.entity;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Gender;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Religion;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.BloodPressure;
+import com.moazmahmud.spring_boot_thymeleaf.health_data.model.PhysicalActivity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,11 +49,15 @@ public class HealthData {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "systolicInMmHg", column = @Column(name = "systolic_in_mm_hg")),
-            @AttributeOverride(name = "diastolicInMmHg", column = @Column(name = "diastolic_in_mm_hg"))
+            @AttributeOverride(name = "systolicInMmHg", column = @Column(name = "blood_pressure_systolicInMmHg")),
+            @AttributeOverride(name = "diastolicInMmHg", column = @Column(name = "blood_pressure_diastolicInMmHg"))
     })
     private BloodPressure bloodPressure;
 
     @Column(name = "blood_sugar_in_milli_mole_per_l")
     private Double bloodSugarInMilliMolePerL;
+
+    @Column(name = "physical_activity")
+    @Enumerated(STRING)
+    private PhysicalActivity physicalActivity;
 }
