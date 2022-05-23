@@ -114,7 +114,7 @@
         <label class="form-label">Carb Intake Frequency</label>
         <div class="pt-2">
             <div th:each="carbIntakeFrequency :  ${carbIntakeFrequencyList}"
-                    class="form-check">
+                 class="form-check">
                 <input th:id="|carbIntakeFrequency-${carbIntakeFrequency}|"
                        th:value="${carbIntakeFrequency}"
                        th:field="*{carbIntakeFrequency}"
@@ -132,18 +132,17 @@
     <div class="col-md-4">
         <label class="form-label">Cereal Quality</label>
         <div class="pt-2">
-            <div class="form-check">
-                <input id="simple" value="simple" name="cerealQuality" type="radio" checked
+            <div th:each="cerealQuality :  ${cerealQualityList}"
+                 class="form-check">
+                <input th:id="|cerealQuality-${cerealQuality}|"
+                       th:value="${cerealQuality}"
+                       th:field="*{cerealQuality}"
+                       type="radio"
                        class="form-check-input">
-                <label class="form-check-label" for="simple">Simple</label>
-            </div>
-            <div class="form-check">
-                <input id="complex" value="complex" name="cerealQuality" type="radio" class="form-check-input">
-                <label class="form-check-label" for="complex">Complex</label>
-            </div>
-            <div class="form-check">
-                <input id="both" value="both" name="cerealQuality" type="radio" class="form-check-input">
-                <label class="form-check-label" for="both">Both</label>
+                <label class="form-check-label"
+                       th:for="|cerealQuality-${cerealQuality}|"
+                       th:text="${cerealQuality.text}"
+                >Simple</label>
             </div>
         </div>
     </div>

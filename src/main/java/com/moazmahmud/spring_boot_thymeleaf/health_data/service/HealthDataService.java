@@ -51,6 +51,7 @@ public class HealthDataService {
         healthData.setBloodSugarInMilliMolePerL(healthDataAddRequest.getBloodSugarInMilliMolePerL());
         healthData.setPhysicalActivity(healthDataAddRequest.getPhysicalActivity());
         healthData.setCarbIntakeFrequency(healthDataAddRequest.getCarbIntakeFrequency());
+        healthData.setCerealQuality(healthDataAddRequest.getCerealQuality());
     }
 
     private HealthDataAddRequest getAddRequestFromEntity(HealthData healthData) {

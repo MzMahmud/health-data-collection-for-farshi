@@ -23,6 +23,7 @@ public class HealthDataAddRequest {
     private Double bloodSugarInMilliMolePerL;
     private PhysicalActivity physicalActivity;
     private CarbIntakeFrequency carbIntakeFrequency;
+    private CerealQuality cerealQuality;
 
     public static HealthDataAddRequest getEmptyInstance() {
         var healthDataAddRequest = new HealthDataAddRequest();
@@ -32,6 +33,7 @@ public class HealthDataAddRequest {
         healthDataAddRequest.religion = Religion.ISLAM;
         healthDataAddRequest.physicalActivity = PhysicalActivity.LIGHT_ACTIVITY;
         healthDataAddRequest.carbIntakeFrequency = CarbIntakeFrequency.ONE_TWO_TIMES;
+        healthDataAddRequest.cerealQuality = CerealQuality.SIMPLE;
         return healthDataAddRequest;
     }
 }
