@@ -31,7 +31,7 @@ healthDataForm.addEventListener('submit', async (event) => {
     const data = Object.fromEntries(formData.entries());
 
     console.debug(data);
-    saveInLocalStorage(data);
+    saveInDatabase(data);
 });
 
 
@@ -56,17 +56,17 @@ bloodPressureLowInput.addEventListener('input', () => setBloodPressureStatus());
 
 const successAlertDiv = document.getElementById('successAlert');
 
-function saveInLocalStorage(data) {
-    data.dataInsertionTime = new Date().toString();
+async function saveInDatabase(data) {
+    const url = "/api/v1/health-data";
 
-    const dataList = getDataList();
-    dataList.push(data);
-
-    localStorage.setItem(healthDataStoreName, JSON.stringify(dataList));
-    successAlertDiv.classList.remove('d-none');
-
-    setTimeout(() => {
-        successAlertDiv.classList.add('d-none');
-        resetForm();
-    }, 1000);
+    try {
+        const response = await AjaxUtil.postAsJson(url, data);
+        successAlertDiv.classList.remove('d-none');
+        setTimeout(() => {
+            successAlertDiv.classList.add('d-none');
+            resetForm();
+        }, 1000);
+    } catch (error) {
+        console.error(error);
+    }
 }

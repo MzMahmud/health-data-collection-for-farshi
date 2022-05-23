@@ -1,0 +1,31 @@
+<div class="row g-5">
+    <div class="col-md-12">
+        <button class="mt-3 w-100 btn btn-secondary btn-lg" type="button" id="download-btn">Download</button>
+
+        <div class="alert alert-danger mt-3" id="no-data-found">
+            No data found
+        </div>
+
+        <div class="w-100" style="overflow-x: scroll;">
+            <table class="table table-striped mt-3 text-nowrap" id="data-table">
+                <thead>
+                <tr>
+                    <td>Serial No</td>
+                    <td>Event Data</td>
+                    <td>Location</td>
+                    <td>Age</td>
+                    <td>Gender</td>
+                    <td>Height</td>
+                    <td>Weight</td>
+                    <td>Action</td>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/health-data/util.js}"></script>
+<script th:src="@{/js/health-data/search.js}"></script>

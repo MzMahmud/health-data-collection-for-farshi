@@ -1,0 +1,171 @@
+<form class="row g-2" id="health-data-form"
+      th:object="${healthDataAddRequest}"
+>
+    <div class="alert alert-success d-none" id="successAlert">
+        Saved Successfully!
+    </div>
+    <input type="hidden" th:field="*{id}">
+    <div class="col-md-6">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" th:field="*{locationName}"
+               id="location" class="form-control" readonly>
+    </div>
+    <div class="col-md-6">
+        <label for="eventDate" class="form-label">Event Date</label>
+        <input type="date" th:field="*{eventDate}"
+               id="eventDate" class="form-control">
+    </div>
+    <div class="col-md-4">
+        <label for="age" class="form-label">Age</label>
+        <input type="text" th:field="*{age}"
+               id="age" class="form-control">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Gender</label>
+        <div class="pt-2">
+            <div th:each="gender : ${genderList}"
+                 class="form-check form-check-inline">
+                <input th:id="|gender-${gender}|" th:value="${gender}" th:field="*{gender}"
+                       type="radio" class="form-check-input">
+                <label th:for="|gender-${gender}|" th:text="${gender.text}"
+                       class="form-check-label">${gender}</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Religion</label>
+        <div class="pt-2">
+            <div th:each="religion : ${religionList}"
+                 class="form-check form-check-inline">
+                <input th:id="|religion-${religion}|" th:value="${religion}" th:field="*{religion}"
+                       type="radio" class="form-check-input">
+                <label th:for="|religion-${religion}|"
+                       th:text="${religion.text}"
+                       class="form-check-label">${religion}</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="weight" class="form-label">Weight (Kg)</label>
+        <input type="text" th:field="*{weightInKg}"
+               id="weight" class="form-control" value="">
+    </div>
+
+    <div class="col-md-3">
+        <label for="height" class="form-label">Height (Inch)</label>
+        <input type="text" th:field="*{heightInInch}"
+               id="height" class="form-control" value="">
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="height" class="form-label">BMI</label>
+                <input type="number" id="bmi" name="bmi" readonly tabindex="-1" class="form-control" value="">
+            </div>
+            <div class="col-md-6">
+                <label for="height" class="form-label">Nutritional Status</label>
+                <input type="text" id="nutritionalStatus" name="nutritionalStatus" readonly tabindex="-1"
+                       class="form-control" value="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Blood Pressure</label>
+        <div class="row g-2">
+            <div class="col-md-6">
+                <input type="text" th:field="*{bloodPressureSystolicInMmHg}"
+                       id="bloodPressureHigh" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <input type="text" th:field="*{bloodPressureDiastolicInMmHg}"
+                       id="bloodPressureLow" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Hypertension Status</label>
+        <input type="text" name="bloodPressureStatus" id="bloodPressureStatus" readonly tabindex="-1"
+               class="form-control" value="">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Blood Sugar</label>
+        <input type="text"  th:field="*{bloodSugarInMilliMolePerL}"
+               class="form-control" value="">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Physical Activity</label>
+        <div class="pt-2">
+            <div class="form-check">
+                <input id="bedRest" value="bedRest" name="physicalActivity" type="radio"
+                       class="form-check-input">
+                <label class="form-check-label" for="bedRest">Bed Rest</label>
+            </div>
+            <div class="form-check">
+                <input id="sedentary" value="sedentary" name="physicalActivity" type="radio" checked
+                       class="form-check-input">
+                <label class="form-check-label" for="sedentary">Sedentary</label>
+            </div>
+            <div class="form-check">
+                <input id="lightActivity" value="lightActivity" name="physicalActivity" type="radio"
+                       class="form-check-input">
+                <label class="form-check-label" for="lightActivity">Light Activity</label>
+            </div>
+            <div class="form-check">
+                <input id="moderate" value="moderate" name="physicalActivity" type="radio"
+                       class="form-check-input">
+                <label class="form-check-label" for="moderate">Moderate</label>
+            </div>
+            <div class="form-check">
+                <input id="high" value="high" name="physicalActivity" type="radio" class="form-check-input">
+                <label class="form-check-label" for="high">High</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Carb Intake Frequency</label>
+        <div class="pt-2">
+            <div class="form-check">
+                <input id="oneTwo" value="oneTwo" name="carbIntakeFrequency" type="radio"
+                       class="form-check-input">
+                <label class="form-check-label" for="oneTwo">1-2 Times</label>
+            </div>
+            <div class="form-check">
+                <input id="twoThree" value="twoThree" name="carbIntakeFrequency" type="radio" checked
+                       class="form-check-input">
+                <label class="form-check-label" for="twoThree">2-3 Times</label>
+            </div>
+            <div class="form-check">
+                <input id="threeFour" value="threeFour" name="carbIntakeFrequency" type="radio"
+                       class="form-check-input">
+                <label class="form-check-label" for="threeFour">3-4 Times</label>
+            </div>
+            <div class="form-check">
+                <input id="moreThanFour" value="moreThanFour" name="carbIntakeFrequency" type="radio"
+                       class="form-check-input">
+                <label class="form-check-label" for="moreThanFour">More Than 4</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Cereal Quality</label>
+        <div class="pt-2">
+            <div class="form-check">
+                <input id="simple" value="simple" name="cerealQuality" type="radio" checked
+                       class="form-check-input">
+                <label class="form-check-label" for="simple">Simple</label>
+            </div>
+            <div class="form-check">
+                <input id="complex" value="complex" name="cerealQuality" type="radio" class="form-check-input">
+                <label class="form-check-label" for="complex">Complex</label>
+            </div>
+            <div class="form-check">
+                <input id="both" value="both" name="cerealQuality" type="radio" class="form-check-input">
+                <label class="form-check-label" for="both">Both</label>
+            </div>
+        </div>
+    </div>
+    <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
+</form>
+
+<script th:src="@{/js/health-data/util.js}"></script>
+<script th:src="@{/js/health-data/add-edit.js}"></script>
