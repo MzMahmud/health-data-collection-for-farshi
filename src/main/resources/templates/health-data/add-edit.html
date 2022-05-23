@@ -89,35 +89,24 @@
     </div>
     <div class="col-md-4">
         <label class="form-label">Blood Sugar</label>
-        <input type="text"  th:field="*{bloodSugarInMilliMolePerL}"
+        <input type="text" th:field="*{bloodSugarInMilliMolePerL}"
                class="form-control" value="">
     </div>
     <div class="col-md-4">
         <label class="form-label">Physical Activity</label>
         <div class="pt-2">
-            <div class="form-check">
-                <input id="bedRest" value="bedRest" name="physicalActivity" type="radio"
-                       class="form-check-input">
-                <label class="form-check-label" for="bedRest">Bed Rest</label>
-            </div>
-            <div class="form-check">
-                <input id="sedentary" value="sedentary" name="physicalActivity" type="radio" checked
-                       class="form-check-input">
-                <label class="form-check-label" for="sedentary">Sedentary</label>
-            </div>
-            <div class="form-check">
-                <input id="lightActivity" value="lightActivity" name="physicalActivity" type="radio"
-                       class="form-check-input">
-                <label class="form-check-label" for="lightActivity">Light Activity</label>
-            </div>
-            <div class="form-check">
-                <input id="moderate" value="moderate" name="physicalActivity" type="radio"
-                       class="form-check-input">
-                <label class="form-check-label" for="moderate">Moderate</label>
-            </div>
-            <div class="form-check">
-                <input id="high" value="high" name="physicalActivity" type="radio" class="form-check-input">
-                <label class="form-check-label" for="high">High</label>
+            <div th:each="physicalActivity : ${physicalActivityList}"
+                 class="form-check">
+                <input th:id="|physicalActivity-${physicalActivity}|"
+                       th:value="${physicalActivity}"
+                       th:field="*{physicalActivity}"
+                       type="radio"
+                       class="form-check-input"
+                >
+                <label class="form-check-label"
+                       th:for="|physicalActivity-${physicalActivity}|"
+                       th:text="${physicalActivity.text}"
+                >${physicalActivity.text}</label>
             </div>
         </div>
     </div>

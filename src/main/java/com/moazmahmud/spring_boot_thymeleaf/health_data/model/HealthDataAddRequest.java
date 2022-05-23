@@ -21,11 +21,15 @@ public class HealthDataAddRequest {
     private Double bloodPressureSystolicInMmHg;
     private Double bloodPressureDiastolicInMmHg;
     private Double bloodSugarInMilliMolePerL;
+    private PhysicalActivity physicalActivity;
 
     public static HealthDataAddRequest getEmptyInstance() {
         var healthDataAddRequest = new HealthDataAddRequest();
         healthDataAddRequest.locationName = "Rakin City, Mirpur-13";
         healthDataAddRequest.eventDate = LocalDate.now();
+        healthDataAddRequest.gender = Gender.MALE;
+        healthDataAddRequest.religion = Religion.ISLAM;
+        healthDataAddRequest.physicalActivity = PhysicalActivity.LIGHT_ACTIVITY;
         return healthDataAddRequest;
     }
 }
