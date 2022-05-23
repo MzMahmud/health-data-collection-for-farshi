@@ -31,6 +31,12 @@ public class HealthDataRestController extends BaseRestController {
                 .build();
     }
 
+    @DeleteMapping("/{id}")
+    public RestResponse delete(@PathVariable("id") Long id) {
+        healthDataService.delete(id);
+        return RestResponse.builder().build();
+    }
+
     @GetMapping("/raw-data")
     public RestResponse getHealthData() {
         return RestResponse

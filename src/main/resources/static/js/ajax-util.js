@@ -24,4 +24,9 @@ class AjaxUtil {
         const responseJson = await this.#extractResponseJson(response);
         return responseJson.payload;
     }
+
+    static async sendDeleteRequest(url) {
+        const response = await fetch(url, {method: 'DELETE'});
+        return await this.#extractResponseJson(response);
+    }
 }

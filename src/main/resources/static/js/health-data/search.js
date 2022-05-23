@@ -14,9 +14,22 @@ function getTableRow(healthDataSearchResponse, index) {
             <td>${healthDataSearchResponse.heightInInch}</td>
             <td>${healthDataSearchResponse.weightInKg}</td>
             <td>
-                <a class="btn btn-info" href="${healthDataSearchResponse.id}">Edit</a>
+                <button type="button" 
+                        onclick="deleteHealthData('${healthDataSearchResponse.id}')"
+                        class="btn btn-outline-danger">
+                    Delete
+                </button>
             </td>
         </tr>`;
+}
+
+async function deleteHealthData(id) {
+    try {
+        await AjaxUtil.sendDeleteRequest(`/api/v1/health-data/${id}`);
+        location.reload();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 async function showDataInTable() {

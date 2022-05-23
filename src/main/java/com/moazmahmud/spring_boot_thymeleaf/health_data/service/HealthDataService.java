@@ -118,4 +118,9 @@ public class HealthDataService {
                 .map(this::mapEntityToSearchResponse)
                 .collect(Collectors.toUnmodifiableList());
     }
+
+    public void delete(Long id) {
+        var healthData = findById(id).orElseThrow(() -> new NotFoundException("No HealthData found with id=" + id));
+        healthDataRepository.delete(healthData);
+    }
 }
