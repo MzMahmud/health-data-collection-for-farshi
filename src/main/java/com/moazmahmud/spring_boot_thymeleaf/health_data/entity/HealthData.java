@@ -1,5 +1,6 @@
 package com.moazmahmud.spring_boot_thymeleaf.health_data.entity;
 
+import com.moazmahmud.spring_boot_thymeleaf.common.AuditableEntity;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Gender;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Religion;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.BloodPressure;
@@ -8,6 +9,9 @@ import com.moazmahmud.spring_boot_thymeleaf.health_data.model.CerealQuality;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.PhysicalActivity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,7 +23,9 @@ import static javax.persistence.EnumType.STRING;
 @Setter
 @Entity
 @Table(name = "health_data")
-public class HealthData {
+@SQLDelete(sql = "UPDATE health_data SET is_deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "is_deleted = false")
+public class HealthData extends AuditableEntity {
     @Id
     @SequenceGenerator(name = "seq_health_data", sequenceName = "seq_health_data")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_health_data")
