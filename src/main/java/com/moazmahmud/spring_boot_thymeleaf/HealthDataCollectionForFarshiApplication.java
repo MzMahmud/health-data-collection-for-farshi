@@ -6,8 +6,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy
-public class SpringBootThymeleafApplication {
+public class HealthDataCollectionForFarshiApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootThymeleafApplication.class, args);
+        SpringApplication.run(HealthDataCollectionForFarshiApplication.class, args);
     }
 }
