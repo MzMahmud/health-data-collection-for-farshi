@@ -53,36 +53,6 @@ function downloadObjectAsJson(exportObj, exportName) {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", `${exportName}_data.json`);
+    downloadAnchorNode.setAttribute("download", `${exportName}.json`);
     downloadAnchorNode.click();
-}
-
-function convertToCsvString(objectArray) {
-    const headers = getHeaders(objectArray);
-    return [
-        headers.join(","),
-        ...objectArray.map(object => getCsvRowFromObject(object, headers))
-    ].join("\r\n");
-}
-
-
-function getCsvRowFromObject(object, headers) {
-    return headers.map(header => getCsvCellValue(object[header])).join(",");
-}
-
-function getCsvCellValue(string) {
-    if (string == null) {
-        return "";
-    }
-    return String(string).includes(",") ? `"${string}"` : `${string}`;
-}
-
-function getHeaders(objectArray) {
-    const header = new Set();
-    for (const object of objectArray) {
-        for (const field in object) {
-            header.add(field);
-        }
-    }
-    return [...header];
 }

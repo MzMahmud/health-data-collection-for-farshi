@@ -41,7 +41,7 @@ public class HealthDataRestController extends BaseRestController {
     public RestResponse getHealthData() {
         return RestResponse
                 .builder()
-                .payload(healthDataService.getAddRequestList())
+                .payload(healthDataService.getEntityList())
                 .build();
     }
 }

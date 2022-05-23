@@ -1,5 +1,6 @@
 package com.moazmahmud.spring_boot_thymeleaf.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -25,5 +26,6 @@ public abstract class AuditableEntity {
     private LocalDateTime modifiedAt;
 
     @Column(name = "is_deleted")
+    @JsonIgnore
     private boolean isDeleted = false;
 }

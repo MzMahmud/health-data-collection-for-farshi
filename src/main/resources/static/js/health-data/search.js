@@ -73,15 +73,7 @@ downloadBtn.addEventListener("click", async () => {
             console.error("healthDataList has no data");
             return;
         }
-        const fileName = "health_data";
-        downloadObjectAsJson(
-            healthDataList,
-            fileName
-        );
-        downloadCsvFile(
-            convertToCsvString(healthDataList),
-            fileName
-        );
+        downloadObjectAsJson(healthDataList,"health_data");
     } catch (error) {
         console.error(error);
     }
