@@ -1,10 +1,12 @@
 package com.moazmahmud.spring_boot_thymeleaf.common.enums;
 
+import com.moazmahmud.spring_boot_thymeleaf.common.interfaces.TextGettable;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum Religion {
+public enum Religion implements TextGettable {
     ISLAM("Islam"),
     HINDUISM("Hinduism"),
     CHRISTIANITY("Cristianity"),
@@ -20,6 +22,7 @@ public enum Religion {
         this.text = text;
     }
 
+    @Override
     public String getText() {
         return text;
     }

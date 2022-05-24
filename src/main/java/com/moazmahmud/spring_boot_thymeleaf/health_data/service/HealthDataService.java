@@ -92,7 +92,7 @@ public class HealthDataService {
         response.setLocationName(healthData.getLocationName());
         response.setEventDate(StringUtil.getFormattedDate(healthData.getEventDate()));
         response.setAge(healthData.getAge());
-        response.setGender(Gender.getText(healthData.getGender()));
+        response.setGender(StringUtil.getText(healthData.getGender()));
         response.setHeightInInch(healthData.getHeightInInch());
         response.setWeightInKg(healthData.getWeightInKg());
         return response;

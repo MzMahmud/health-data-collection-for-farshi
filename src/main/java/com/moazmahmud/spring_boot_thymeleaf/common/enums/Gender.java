@@ -1,10 +1,12 @@
 package com.moazmahmud.spring_boot_thymeleaf.common.enums;
 
+import com.moazmahmud.spring_boot_thymeleaf.common.interfaces.TextGettable;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum Gender {
+public enum Gender implements TextGettable {
     MALE("Male"),
     FEMALE("Female"),
     OTHER("Other"),
@@ -19,11 +21,8 @@ public enum Gender {
         this.text = text;
     }
 
+    @Override
     public String getText() {
         return text;
-    }
-
-    public static String getText(Gender gender) {
-        return gender == null ? "NOT AVAILABLE" : gender.text;
     }
 }
