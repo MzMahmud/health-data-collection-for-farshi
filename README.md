@@ -16,6 +16,8 @@ As the name suggests, this branch contains an implementation with `spring boot` 
 
 I deployed this project to heroku using `heroku cli`. I could not use heroku's `github` auto deploy feature because at this time, heroku's github integration api was down.
 
+This version is deployed at [`health-data-collection.herokuapp.com`](http://health-data-collection.herokuapp.com/)
+
 ### Rest of the git branches
 - `main` contains the `README.md` file you are reading.
 - `master` is needed to auto build and deploy in heroku cli.
