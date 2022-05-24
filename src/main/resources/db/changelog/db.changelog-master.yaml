@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: master
+      author: moaz
+      changes:
+        - sqlFile:
+            path: db/changelog/data/master.sql

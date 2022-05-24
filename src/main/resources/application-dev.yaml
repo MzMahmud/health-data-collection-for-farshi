@@ -5,15 +5,17 @@ spring:
     username: postgres
     password: 123456
   jpa:
-    hibernate:
-      ddl-auto: update
     show-sql: true
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    generate-ddl: true
     properties:
       hibernate:
         format_sql: true
+  liquibase:
+    enabled: true
 
 server:
   port: 6629
