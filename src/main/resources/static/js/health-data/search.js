@@ -13,13 +13,6 @@ function getTableRow(healthDataSearchResponse, index) {
             <td>${healthDataSearchResponse.gender}</td>
             <td>${healthDataSearchResponse.heightInInch}</td>
             <td>${healthDataSearchResponse.weightInKg}</td>
-            <td>
-                <button type="button" 
-                        onclick="deleteHealthData('${healthDataSearchResponse.id}')"
-                        class="btn btn-outline-danger">
-                    Delete
-                </button>
-            </td>
         </tr>`;
 }
 
