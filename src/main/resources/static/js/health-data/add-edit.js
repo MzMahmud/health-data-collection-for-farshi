@@ -10,12 +10,27 @@ const bloodPressureStatusInput = document.getElementById("bloodPressureStatus");
 const eventDateInput = document.getElementById("eventDate");
 const locationInput = document.getElementById("location");
 
+const appLocalStoragePrefix = 'health-data-collection';
+
+function setDefaultInputsToLocalStorage(data) {
+    localStorage.setItem(`${appLocalStoragePrefix}-data`, JSON.stringify(data));
+}
+
+function setDefaultInputsFromLocalStorage() {
+    const data = JSON.parse(localStorage.getItem(`${appLocalStoragePrefix}-data`)) ?? {};
+    if(data.locationName == null) {
+        locationInput.value = '';
+        locationInput.focus();
+    } else {
+        locationInput.value = data.locationName;
+    }
+    eventDateInput.value = data.eventDate ?? new Date().toJSON().split('T')[0];
+}
 
 function resetForm() {
     healthDataForm.reset();
-    locationInput.value = "rakin_city_mirpur_13";
-    eventDateInput.value = new Date().toJSON().split('T')[0];
     ageInput.focus();
+    setDefaultInputsFromLocalStorage();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -24,14 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 healthDataForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-
-    const formElement = event.target;
-    const formData = new FormData(formElement);
-
+    const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-
     console.debug(data);
-    saveInDatabase(data);
+    setDefaultInputsToLocalStorage(data);
+    await saveInDatabase(data);
 });
 
 
@@ -60,7 +72,7 @@ async function saveInDatabase(data) {
     const url = "/api/v1/health-data";
 
     try {
-        const response = await AjaxUtil.postAsJson(url, data);
+        await AjaxUtil.postAsJson(url, data);
         successAlertDiv.classList.remove('d-none');
         setTimeout(() => {
             successAlertDiv.classList.add('d-none');
