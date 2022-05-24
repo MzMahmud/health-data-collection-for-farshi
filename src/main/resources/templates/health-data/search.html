@@ -1,30 +1,41 @@
-<div class="row g-5">
+<div class="row">
     <div class="col-md-12">
-        <button class="mt-3 w-100 btn btn-secondary btn-lg" type="button" id="download-btn">
-            Download Raw Data
-        </button>
+        <div class="row g-4">
+            <div class="form-group col-md-12">
+                <button class="mt-3 w-100 btn btn-secondary btn-lg" type="button" id="download-btn">
+                    Download Raw Data
+                </button>
+            </div>
 
-        <div class="alert alert-danger mt-3" id="no-data-found">
+            <div class="form-group col-md-12">
+                <div class="row">
+                    <label for="eventDate" class="col-sm-3 col-form-label">Event Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="eventDate" placeholder="Email">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 w-100" style="overflow-x: scroll;">
+        <div class="alert alert-danger" id="no-data-found">
             No data found
         </div>
-
-        <div class="w-100" style="overflow-x: scroll;">
-            <table class="table table-striped mt-3 text-nowrap" id="data-table">
-                <thead>
-                <tr>
-                    <td>Serial No</td>
-                    <td>Event Data</td>
-                    <td>Location</td>
-                    <td>Age</td>
-                    <td>Gender</td>
-                    <td>Height</td>
-                    <td>Weight</td>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
+        <table class="table table-striped mt-3 text-nowrap thead-light" id="data-table">
+            <thead>
+            <tr>
+                <td>Serial No</td>
+                <td>Event Data</td>
+                <td>Location</td>
+                <td>Age</td>
+                <td>Gender</td>
+                <td>Height</td>
+                <td>Weight</td>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>
 
