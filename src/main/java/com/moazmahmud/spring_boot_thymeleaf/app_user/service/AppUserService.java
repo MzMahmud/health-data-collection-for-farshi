@@ -3,14 +3,14 @@ package com.moazmahmud.spring_boot_thymeleaf.app_user.service;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.AppUser;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.repository.AppUserRepository;
 import com.moazmahmud.spring_boot_thymeleaf.role.entity.Authority;
-import com.moazmahmud.spring_boot_thymeleaf.role.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
