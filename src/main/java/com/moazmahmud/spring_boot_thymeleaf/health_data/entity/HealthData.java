@@ -1,6 +1,6 @@
 package com.moazmahmud.spring_boot_thymeleaf.health_data.entity;
 
-import com.moazmahmud.spring_boot_thymeleaf.common.AuditableEntity;
+import com.moazmahmud.spring_boot_thymeleaf.common.classes.AuditableEntity;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Gender;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Religion;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.BloodPressure;

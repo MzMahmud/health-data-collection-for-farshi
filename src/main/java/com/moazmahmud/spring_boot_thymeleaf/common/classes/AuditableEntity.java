@@ -1,4 +1,4 @@
-package com.moazmahmud.spring_boot_thymeleaf.common;
+package com.moazmahmud.spring_boot_thymeleaf.common.classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

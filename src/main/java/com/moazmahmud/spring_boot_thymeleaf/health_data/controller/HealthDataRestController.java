@@ -1,14 +1,12 @@
 package com.moazmahmud.spring_boot_thymeleaf.health_data.controller;
 
-import com.moazmahmud.spring_boot_thymeleaf.common.BaseRestController;
-import com.moazmahmud.spring_boot_thymeleaf.common.RestResponse;
+import com.moazmahmud.spring_boot_thymeleaf.common.classes.BaseRestController;
+import com.moazmahmud.spring_boot_thymeleaf.common.classes.RestResponse;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.HealthDataAddRequest;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.HealthDataSearchResponse;
+import com.moazmahmud.spring_boot_thymeleaf.health_data.model.HealthDataSearchRequest;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.service.HealthDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/health-data")

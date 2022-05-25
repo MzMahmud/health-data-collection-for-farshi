@@ -1,4 +1,4 @@
-package com.moazmahmud.spring_boot_thymeleaf.common;
+package com.moazmahmud.spring_boot_thymeleaf.common.classes;
 
 import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.BadRequestException;
 import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.NotFoundException;
