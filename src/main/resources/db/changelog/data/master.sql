@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS health_data;
 CREATE TABLE health_data
 (
     id                                BIGINT NOT NULL,
@@ -166,5 +167,6 @@ VALUES (71, '5/20/2022, 5:02:44 PM', false, '5/20/2022, 5:02:44 PM', 70, 63, 119
 INSERT INTO health_data (id, created_at, is_deleted, modified_at, age, blood_pressure_diastolic_in_mm_hg, blood_pressure_systolic_in_mm_hg, blood_sugar_in_milli_mole_per_l, carb_intake_frequency, cereal_quality, event_date, gender, height_in_inch, location_name, physical_activity, religion, weight_in_kg)
 VALUES (72, '5/20/2022, 5:06:55 PM', false, '5/20/2022, 5:06:55 PM', 25, 81, 138, 5.2, 'TWO_THREE_TIMES', 'SIMPLE', '2022-05-20', 'MALE', 71, 'Rakin City, Mirpur - 13', 'SEDENTARY', 'ISLAM', 107);
 
+DROP SEQUENCE IF EXISTS seq_health_data;
 CREATE SEQUENCE seq_health_data START 100 INCREMENT 50;
 SELECT nextval ('seq_health_data');
