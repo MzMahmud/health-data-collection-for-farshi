@@ -3,6 +3,7 @@ package com.moazmahmud.spring_boot_thymeleaf.role.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "authority")
-public class Authority {
+public class Authority implements GrantedAuthority {
     @Id
     @SequenceGenerator(name = "seq_authority", sequenceName = "seq_authority")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_authority")
@@ -32,5 +33,10 @@ public class Authority {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String getAuthority() {
+        return name;
     }
 }

@@ -22,6 +22,9 @@ public class AppUser {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "is_enabled")
     private Boolean isEnabled;
 

@@ -1,9 +1,10 @@
-create table app_user
+CREATE TABLE app_user
 (
-    id         int8 not null,
-    is_enabled boolean,
-    username   varchar(255),
-    primary key (id)
+    id         BIGINT NOT NULL,
+    username   VARCHAR(255),
+    password   VARCHAR(255),
+    is_enabled BOOLEAN,
+    CONSTRAINT pk_app_user PRIMARY KEY (id)
 );
 
 
