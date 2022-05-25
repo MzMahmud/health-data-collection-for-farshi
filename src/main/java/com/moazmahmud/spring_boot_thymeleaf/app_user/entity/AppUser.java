@@ -1,6 +1,5 @@
 package com.moazmahmud.spring_boot_thymeleaf.app_user.entity;
 
-import com.moazmahmud.spring_boot_thymeleaf.role.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
 
