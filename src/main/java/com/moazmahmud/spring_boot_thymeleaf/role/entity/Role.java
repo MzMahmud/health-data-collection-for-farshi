@@ -3,6 +3,8 @@ package com.moazmahmud.spring_boot_thymeleaf.role.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -42,5 +44,9 @@ public class Role {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public GrantedAuthority getGrantedAuthority() {
+        return new SimpleGrantedAuthority("ROLE_" + name);
     }
 }

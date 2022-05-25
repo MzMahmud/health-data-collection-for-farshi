@@ -1,14 +1,12 @@
 package com.moazmahmud.spring_boot_thymeleaf.app_user.model;
 
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.AppUser;
-import com.moazmahmud.spring_boot_thymeleaf.role.entity.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 public class AppUserDetails implements UserDetails {
@@ -16,13 +14,9 @@ public class AppUserDetails implements UserDetails {
     private final AppUser appUser;
     private final Set<GrantedAuthority> grantedAuthorities;
 
-    public AppUserDetails(AppUser appUser) {
+    public AppUserDetails(AppUser appUser, Set<GrantedAuthority> grantedAuthorities) {
         this.appUser = appUser;
-        grantedAuthorities = appUser.getRoles()
-                                    .stream()
-                                    .map(Role::getAuthorities)
-                                    .map(authorities -> (GrantedAuthority) authorities)
-                                    .collect(Collectors.toUnmodifiableSet());
+        this.grantedAuthorities = grantedAuthorities;
     }
 
     @Override

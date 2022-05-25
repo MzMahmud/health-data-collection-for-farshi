@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "authority")
-public class Authority implements GrantedAuthority {
+public class Authority {
     @Id
     @SequenceGenerator(name = "seq_authority", sequenceName = "seq_authority")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_authority")
@@ -35,8 +36,7 @@ public class Authority implements GrantedAuthority {
         return getClass().hashCode();
     }
 
-    @Override
-    public String getAuthority() {
-        return name;
+    public GrantedAuthority getGrantedAuthority() {
+        return new SimpleGrantedAuthority(name);
     }
 }

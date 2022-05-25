@@ -28,7 +28,7 @@ public class AppUser {
     @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "app_user_roles",
             joinColumns = @JoinColumn(name = "app_user_id"),

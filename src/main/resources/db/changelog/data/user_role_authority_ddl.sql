@@ -1,10 +1,10 @@
-CREATE TABLE app_user
+create table app_user
 (
-    id         BIGINT NOT NULL,
-    username   VARCHAR(255),
-    password   VARCHAR(255),
-    is_enabled BOOLEAN,
-    CONSTRAINT pk_app_user PRIMARY KEY (id)
+    id         bigint not null,
+    username   varchar(255),
+    password   varchar(255),
+    is_enabled boolean,
+    constraint pk_app_user primary key (id)
 );
 
 
@@ -66,3 +66,23 @@ alter table role_authorities
     add constraint fk_role_id
         foreign key (role_id)
             references role;
+
+insert into role (id, name)
+values (1, 'ADMIN'),
+       (2, 'USER'),
+       (3, 'DATA_COLLECTOR');
+
+insert into authority (id, name)
+values (1, 'HEALTH_DATA_ADD'),
+       (2, 'HEALTH_DATA_EDIT'),
+       (3, 'HEALTH_DATA_DELETE'),
+       (4, 'HEALTH_DATA_VIEW');
+
+insert into role_authorities (role_id, authorities_id)
+values (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (2, 4),
+       (3, 1),
+       (3, 4);
