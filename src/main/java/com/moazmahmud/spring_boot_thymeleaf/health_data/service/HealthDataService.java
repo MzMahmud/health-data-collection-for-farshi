@@ -1,6 +1,5 @@
 package com.moazmahmud.spring_boot_thymeleaf.health_data.service;
 
-import com.moazmahmud.spring_boot_thymeleaf.common.enums.Gender;
 import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.NotFoundException;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.entity.HealthData;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.BloodPressure;
@@ -100,13 +99,16 @@ public class HealthDataService {
     }
 
     @Transactional(readOnly = true)
-    public List<HealthData> getEntityList() {
-        return healthDataRepository.findAll();
+    public List<HealthData> getEntityList(HealthDataSearchRequest searchRequest) {
+        if (searchRequest.getEventDate() == null) {
+            return healthDataRepository.findAll();
+        }
+        return healthDataRepository.findAllByEventDate(searchRequest.getEventDate());
     }
 
     @Transactional(readOnly = true)
-    public List<HealthDataSearchResponse> getSearchResponseList() {
-        return getEntityList()
+    public List<HealthDataSearchResponse> getSearchResponseList(HealthDataSearchRequest searchRequest) {
+        return getEntityList(searchRequest)
                 .stream()
                 .map(this::mapEntityToSearchResponse)
                 .collect(Collectors.toUnmodifiableList());

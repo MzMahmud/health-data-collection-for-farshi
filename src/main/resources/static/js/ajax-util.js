@@ -19,7 +19,11 @@ class AjaxUtil {
         return await this.#extractResponseJson(response);
     }
 
-    static async getPayload(url) {
+    static async getPayload(url, queryParamsObject = {}) {
+        const searchParams = new URLSearchParams(queryParamsObject).toString();
+        if (searchParams) {
+            url = `${url}?${searchParams}`;
+        }
         const response = await fetch(url);
         const responseJson = await this.#extractResponseJson(response);
         return responseJson.payload;

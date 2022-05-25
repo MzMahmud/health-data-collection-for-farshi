@@ -15,6 +15,7 @@ public abstract class BaseRestController {
 
     @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<RestResponse> handleBadRequestException(BadRequestException exception) {
+        log.error(exception.getMessage());
         return ResponseEntity
                 .badRequest()
                 .body(RestResponse.builder()
@@ -25,6 +26,7 @@ public abstract class BaseRestController {
 
     @ExceptionHandler({NotFoundException.class, NoSuchElementException.class})
     public ResponseEntity<RestResponse> handleNotFoundException(Exception exception) {
+        log.error(exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(RestResponse.builder()
@@ -35,6 +37,7 @@ public abstract class BaseRestController {
 
     @ExceptionHandler({UnauthorizedException.class})
     public ResponseEntity<RestResponse> handleUnauthorizedException(Exception exception) {
+        log.error(exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(RestResponse.builder()
@@ -45,6 +48,7 @@ public abstract class BaseRestController {
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<RestResponse> handleInternalServerException(Exception exception) {
+        log.error(exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(RestResponse.builder()

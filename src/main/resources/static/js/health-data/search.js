@@ -2,6 +2,7 @@ const dataTable = document.getElementById("data-table");
 const dataTableBody = dataTable.querySelector("tbody");
 const noDataFoundDiv = document.getElementById("no-data-found");
 const downloadBtn = document.getElementById("download-btn");
+const eventDateInput = document.getElementById("eventDate");
 
 function getTableRow(healthDataSearchResponse, index) {
     return `
@@ -25,18 +26,22 @@ async function deleteHealthData(id) {
     }
 }
 
-async function showDataInTable() {
+async function showDataInTable(queryParamsObject = {}) {
     try {
-        const healthDataSearchResponseList = await AjaxUtil.getPayload("/api/v1/health-data");
+        const healthDataSearchResponseList = await AjaxUtil.getPayload(`/api/v1/health-data`, queryParamsObject);
         const hasData = Array.isArray(healthDataSearchResponseList)
                         && healthDataSearchResponseList.length > 0;
-        if (!hasData) {
-            return;
+        if (hasData) {
+            dataTableBody.innerHTML = healthDataSearchResponseList.map(getTableRow).join("");
+            downloadBtn.disabled = false;
+            hideElement(noDataFoundDiv);
+            showElement(dataTable);
+        } else {
+            dataTableBody.innerHTML = '';
+            downloadBtn.disabled = true;
+            hideElement(dataTable);
+            showElement(noDataFoundDiv);
         }
-        dataTableBody.innerHTML = healthDataSearchResponseList.map(getTableRow).join("");
-        hideElement(noDataFoundDiv);
-        downloadBtn.disabled = false;
-        showElement(dataTable);
     } catch (error) {
         console.error(error);
     }
@@ -48,26 +53,31 @@ document.addEventListener("DOMContentLoaded", async function () {
     await showDataInTable();
 });
 
-function downloadCsvFile(csvString, fileName) {
-    const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
-    const link = document.createElement("a");
-    link.setAttribute("href", URL.createObjectURL(blob));
-    link.setAttribute("download", `${fileName}.csv`);
-    link.style.visibility = 'hidden';
-    link.click();
+function getSearchParamsObject() {
+    const eventDate = eventDateInput.value;
+    const queryParamsObject = {};
+    if (eventDate) {
+        queryParamsObject.eventDate = eventDate;
+    }
+    return queryParamsObject;
 }
 
 downloadBtn.addEventListener("click", async () => {
     try {
-        const healthDataList = await AjaxUtil.getPayload("/api/v1/health-data/raw-data");
+        const healthDataList = await AjaxUtil.getPayload("/api/v1/health-data/raw-data", getSearchParamsObject());
         const hasData = Array.isArray(healthDataList)
                         && healthDataList.length > 0;
         if (!hasData) {
             console.error("healthDataList has no data");
+            alert("healthDataList has no data");
             return;
         }
-        downloadObjectAsJson(healthDataList,"health_data");
+        downloadObjectAsJson(healthDataList, "health_data");
     } catch (error) {
         console.error(error);
     }
 });
+
+eventDateInput.onchange = async () => {
+    await showDataInTable(getSearchParamsObject());
+};

@@ -22,10 +22,10 @@ public class HealthDataRestController extends BaseRestController {
     }
 
     @GetMapping
-    public RestResponse getSearchResponse() {
+    public RestResponse getSearchResponse(HealthDataSearchRequest searchRequest) {
         return RestResponse
                 .builder()
-                .payload(healthDataService.getSearchResponseList())
+                .payload(healthDataService.getSearchResponseList(searchRequest))
                 .build();
     }
 
@@ -36,10 +36,10 @@ public class HealthDataRestController extends BaseRestController {
     }
 
     @GetMapping("/raw-data")
-    public RestResponse getHealthData() {
+    public RestResponse getHealthData(HealthDataSearchRequest searchRequest) {
         return RestResponse
                 .builder()
-                .payload(healthDataService.getEntityList())
+                .payload(healthDataService.getEntityList(searchRequest))
                 .build();
     }
 }
