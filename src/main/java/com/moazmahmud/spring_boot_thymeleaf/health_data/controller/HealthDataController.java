@@ -1,6 +1,6 @@
 package com.moazmahmud.spring_boot_thymeleaf.health_data.controller;
 
-import com.moazmahmud.spring_boot_thymeleaf.annotations.TitleAndTemplate;
+import com.moazmahmud.spring_boot_thymeleaf.common.annotations.TitleAndTemplate;
 import com.moazmahmud.spring_boot_thymeleaf.common.classes.BaseController;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.model.HealthDataAddRequest;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.service.HealthDataModelService;

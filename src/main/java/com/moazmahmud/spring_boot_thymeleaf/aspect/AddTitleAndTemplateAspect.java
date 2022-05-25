@@ -1,6 +1,6 @@
 package com.moazmahmud.spring_boot_thymeleaf.aspect;
 
-import com.moazmahmud.spring_boot_thymeleaf.annotations.TitleAndTemplate;
+import com.moazmahmud.spring_boot_thymeleaf.common.annotations.TitleAndTemplate;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
