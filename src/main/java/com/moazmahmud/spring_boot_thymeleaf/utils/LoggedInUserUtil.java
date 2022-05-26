@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class LoggedInUserUtil {
@@ -18,37 +20,40 @@ public final class LoggedInUserUtil {
     public static final String ROLE_PREFIX = "ROLE_";
 
     public static boolean hasRole(String role) {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return hasRole(authentication, role, ROLE_PREFIX);
+        return hasAnyRole(role);
     }
 
     public static boolean hasAnyRole(String... roles) {
-        return Arrays.stream(roles)
-                     .anyMatch(LoggedInUserUtil::hasRole);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return hasAnyRole(authentication, ROLE_PREFIX, roles);
     }
 
     public static boolean hasAuthority(String authority) {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return hasRole(authentication, authority, null);
+        return hasAnyAuthority(authority);
     }
 
     public static boolean hasAnyAuthority(String... authorities) {
-        return Arrays.stream(authorities)
-                     .anyMatch(LoggedInUserUtil::hasAuthority);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return hasAnyRole(authentication, null, authorities);
     }
 
-    private static boolean hasRole(String roleWithPrefix, Stream<? extends GrantedAuthority> grantedAuthorityStream) {
+    private static boolean hasAnyRole(Set<String> rolesWithPrefix,
+                                      Stream<? extends GrantedAuthority> grantedAuthorityStream) {
         return grantedAuthorityStream
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(roleWithPrefix::equals);
+                .anyMatch(rolesWithPrefix::contains);
     }
 
-    private static boolean hasRole(Authentication authentication, String role, String rolePrefix) {
-        String roleWithPrefix = (rolePrefix != null) ? (rolePrefix + role) : role;
+    private static boolean hasAnyRole(Authentication authentication, String rolePrefix, String... roles) {
+        Set<String> rolesWithPrefix =
+                Arrays.stream(roles)
+                      .map(role -> (rolePrefix != null) ? (rolePrefix + role) : role)
+                      .collect(Collectors.toUnmodifiableSet());
+        
         return Optional.ofNullable(authentication)
                        .map(Authentication::getAuthorities)
                        .map(Collection::stream)
-                       .map(grantedAuthorityStream -> hasRole(roleWithPrefix, grantedAuthorityStream))
+                       .map(grantedAuthorityStream -> hasAnyRole(rolesWithPrefix, grantedAuthorityStream))
                        .orElse(false);
     }
 }
