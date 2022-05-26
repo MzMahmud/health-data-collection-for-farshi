@@ -19,6 +19,11 @@ public final class LoggedInUserUtil {
 
     public static final String ROLE_PREFIX = "ROLE_";
 
+    public static String getUsername() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication == null ? null : authentication.getName();
+    }
+
     public static boolean hasRole(String role) {
         return hasAnyRole(role);
     }
@@ -49,7 +54,7 @@ public final class LoggedInUserUtil {
                 Arrays.stream(roles)
                       .map(role -> (rolePrefix != null) ? (rolePrefix + role) : role)
                       .collect(Collectors.toUnmodifiableSet());
-        
+
         return Optional.ofNullable(authentication)
                        .map(Authentication::getAuthorities)
                        .map(Collection::stream)
