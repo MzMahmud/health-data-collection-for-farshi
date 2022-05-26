@@ -15,7 +15,7 @@ public abstract class BaseController {
     protected String layout = "layout/layout";
 
     @ExceptionHandler({BadRequestException.class})
-    @TitleAndTemplate(title = "400", template = "400-bad-request")
+    @TitleAndTemplate(title = "400", template = "error-page/400-bad-request")
     public String handleBadRequestException(Model model, BadRequestException exception) {
         log.error(exception.getMessage());
         model.addAttribute("errorMessage", exception.getMessage());
@@ -23,7 +23,7 @@ public abstract class BaseController {
     }
 
     @ExceptionHandler({NotFoundException.class, NoSuchElementException.class})
-    @TitleAndTemplate(title = "404", template = "404-not-found")
+    @TitleAndTemplate(title = "404", template = "error-page/404-not-found")
     public String handleNotFoundException(Model model, Exception exception) {
         log.error(exception.getMessage());
         model.addAttribute("errorMessage", exception.getMessage());
@@ -31,7 +31,7 @@ public abstract class BaseController {
     }
 
     @ExceptionHandler({UnauthorizedException.class})
-    @TitleAndTemplate(title = "401", template = "401-unauthorized")
+    @TitleAndTemplate(title = "401", template = "error-page/401-unauthorized")
     public String handleUnauthorizedException(Model model, Exception exception) {
         log.error(exception.getMessage());
         model.addAttribute("errorMessage", exception.getMessage());
@@ -39,7 +39,7 @@ public abstract class BaseController {
     }
 
     @ExceptionHandler({Exception.class})
-    @TitleAndTemplate(title = "500", template = "500-internal-server-error")
+    @TitleAndTemplate(title = "500", template = "error-page/500-internal-server-error")
     public String handleInternalServerException(Model model, Exception exception) {
         log.error(exception.getMessage());
         model.addAttribute("errorMessage", exception.getMessage());

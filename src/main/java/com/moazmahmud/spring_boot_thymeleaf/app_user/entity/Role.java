@@ -11,6 +11,8 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static com.moazmahmud.spring_boot_thymeleaf.utils.LoggedInUserUtil.ROLE_PREFIX;
+
 @Getter
 @Setter
 @Entity
@@ -47,6 +49,6 @@ public class Role {
     }
 
     public GrantedAuthority getGrantedAuthority() {
-        return new SimpleGrantedAuthority("ROLE_" + name);
+        return new SimpleGrantedAuthority(ROLE_PREFIX + name);
     }
 }
