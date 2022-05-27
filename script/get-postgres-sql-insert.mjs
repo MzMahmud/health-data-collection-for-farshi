@@ -56,10 +56,13 @@ function physicalActivityConverter(physicalActivity) {
 }
 
 function getSqlInsertQuery(data, index) {
-    const insertTime = new Date(data.dataInsertionTime).toLocaleString();
+    const dataInsertionTime = new Date(data.dataInsertionTime);
+    const insertTime = dataInsertionTime.toLocaleString();
+    const eventDate = dataInsertionTime.toISOString().split('T')[0];
+    const locationName = 'Rakin City, Mirpur - 13';
     return `
 INSERT INTO health_data (id, created_at, is_deleted, modified_at, age, blood_pressure_diastolic_in_mm_hg, blood_pressure_systolic_in_mm_hg, blood_sugar_in_milli_mole_per_l, carb_intake_frequency, cereal_quality, event_date, gender, height_in_inch, location_name, physical_activity, religion, weight_in_kg) 
-VALUES (${index + 1}, '${insertTime}', false, '${insertTime}', ${data.age}, ${data.bloodPressureLow}, ${data.bloodPressureHigh}, ${data.bloodSugar}, ${carbIntakeFrequencyConverter(data.carbIntakeFrequency)}, ${cerealQualityConverter(data.cerealQuality)}, '2022-05-20', ${genderConverter(data.gender)}, ${data.height}, 'Rakin City, Mirpur - 13', ${physicalActivityConverter(data.physicalActivity)}, ${religionConverter(data.religion)}, ${data.weight});
+VALUES (${index + 1}, '${insertTime}', false, '${insertTime}', ${data.age}, ${data.bloodPressureLow}, ${data.bloodPressureHigh}, ${data.bloodSugar}, ${carbIntakeFrequencyConverter(data.carbIntakeFrequency)}, ${cerealQualityConverter(data.cerealQuality)}, '${eventDate}', ${genderConverter(data.gender)}, ${data.height}, '${locationName}', ${physicalActivityConverter(data.physicalActivity)}, ${religionConverter(data.religion)}, ${data.weight});
         `.trim();
 }
 
