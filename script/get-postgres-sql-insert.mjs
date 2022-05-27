@@ -19,8 +19,8 @@ function religionConverter(religionStr) {
     switch (religionStr) {
         case "islam": return `'ISLAM'`;
         case "hinduism": return `'HINDUISM'`;
-        case "budhism": return `'CHRISTIANITY'`;
-        case "cristianity": return `'BUDDHISM'`;
+        case "budhism": return `'BUDDHISM'`;
+        case "cristianity": return `'CHRISTIANITY'`;
     }
     return `'PREFER_NOT_TO_TELL'`;
 }
