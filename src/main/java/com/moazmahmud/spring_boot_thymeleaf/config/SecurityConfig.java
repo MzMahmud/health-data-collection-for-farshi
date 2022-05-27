@@ -60,6 +60,8 @@ public class SecurityConfig {
             .antMatchers(permitAllURL).permitAll()
             .anyRequest().authenticated()
             .and()
+            .exceptionHandling().accessDeniedPage("/error-page/401")
+            .and()
             .formLogin()
             .and()
             .headers()
