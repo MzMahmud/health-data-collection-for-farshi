@@ -1,4 +1,4 @@
-package com.moazmahmud.spring_boot_thymeleaf.annotations;
+package com.moazmahmud.spring_boot_thymeleaf.common.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

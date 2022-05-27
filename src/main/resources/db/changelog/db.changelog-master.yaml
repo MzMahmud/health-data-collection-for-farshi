@@ -5,3 +5,10 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/data/master.sql
+
+  - changeSet:
+      id: user_role_authority_ddl
+      author: moaz
+      changes:
+        - sqlFile:
+            path: db/changelog/data/user_role_authority_ddl.sql

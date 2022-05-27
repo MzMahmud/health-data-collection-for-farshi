@@ -1,6 +1,7 @@
 package com.moazmahmud.spring_boot_thymeleaf.aspect;
 
-import com.moazmahmud.spring_boot_thymeleaf.annotations.TitleAndTemplate;
+import com.moazmahmud.spring_boot_thymeleaf.common.annotations.TitleAndTemplate;
+import com.moazmahmud.spring_boot_thymeleaf.utils.LoggedInUserUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -23,5 +24,6 @@ public class AddTitleAndTemplateAspect {
                               .orElseThrow(() -> new IllegalArgumentException("TitleAndTemplate needs a Model argument"));
         model.addAttribute("title", titleAndTemplate.title());
         model.addAttribute("template", titleAndTemplate.template());
+        model.addAttribute("loggedInUsername", LoggedInUserUtil.getUsername());
     }
 }
