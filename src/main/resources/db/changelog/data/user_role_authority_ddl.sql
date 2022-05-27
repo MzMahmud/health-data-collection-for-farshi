@@ -69,7 +69,7 @@ alter table role_authorities
 
 insert into role (id, name)
 values (1, 'ADMIN'),
-       (2, 'USER'),
+       (2, 'VIEWER'),
        (3, 'DATA_COLLECTOR');
 
 insert into authority (id, name)
