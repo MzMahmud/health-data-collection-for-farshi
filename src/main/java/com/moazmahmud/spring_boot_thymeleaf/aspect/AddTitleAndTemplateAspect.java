@@ -24,6 +24,6 @@ public class AddTitleAndTemplateAspect {
                               .orElseThrow(() -> new IllegalArgumentException("TitleAndTemplate needs a Model argument"));
         model.addAttribute("title", titleAndTemplate.title());
         model.addAttribute("template", titleAndTemplate.template());
-        model.addAttribute("loggedInUsername", LoggedInUserUtil.getUsername());
+        model.addAttribute("loggedInUsername", LoggedInUserUtil.getUsername().orElse(""));
     }
 }

@@ -1,5 +1,6 @@
 package com.moazmahmud.spring_boot_thymeleaf.utils;
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,9 +20,10 @@ public final class LoggedInUserUtil {
 
     public static final String ROLE_PREFIX = "ROLE_";
 
-    public static String getUsername() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication == null ? null : authentication.getName();
+    @NonNull
+    public static Optional<String> getUsername() {
+        return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                       .map(Authentication::getName);
     }
 
     public static boolean hasRole(String role) {
