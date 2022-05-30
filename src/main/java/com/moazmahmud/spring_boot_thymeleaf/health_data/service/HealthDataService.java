@@ -118,4 +118,8 @@ public class HealthDataService {
         var healthData = findById(id).orElseThrow(() -> new NotFoundException("No HealthData found with id=" + id));
         healthDataRepository.delete(healthData);
     }
+
+    public List<HealthData> updateDependentValues() {
+        return null;
+    }
 }

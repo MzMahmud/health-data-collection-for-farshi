@@ -55,6 +55,7 @@ public class SecurityConfig {
             .antMatchers(GET,"/health-data/search", "/api/v1/health-data").hasAnyAuthority("HEALTH_DATA_VIEW", "HEALTH_DATA_EDIT", "HEALTH_DATA_DELETE")
             .antMatchers(GET,"/api/v1/health-data/raw-data").hasAnyAuthority("HEALTH_DATA_VIEW")
             .antMatchers(GET,"/health-data/*").hasAnyAuthority("HEALTH_DATA_EDIT")
+            .antMatchers(PUT,"api/v1/health-data/update-dependent-values").hasAnyAuthority("HEALTH_DATA_EDIT")
             .antMatchers(POST,"api/v1/health-data/*").hasAnyAuthority("HEALTH_DATA_EDIT")
             .antMatchers(DELETE,"/api/v1/health-data/*").hasAnyAuthority("HEALTH_DATA_DELETE")
             .antMatchers(permitAllURL).permitAll()
