@@ -48,11 +48,8 @@ public final class HealthUtil {
     }
 
     public static HypertensionStatus getHypertensionStatus(BloodPressure bloodPressure) {
-        var isAnyNull = ValidationUtil.isAnyNull(
-                bloodPressure,
-                bloodPressure.getSystolicInMmHg(),
-                bloodPressure.getDiastolicInMmHg()
-        );
+        var isAnyNull = bloodPressure == null
+                        || ValidationUtil.isAnyNull(bloodPressure.getSystolicInMmHg(), bloodPressure.getDiastolicInMmHg());
         if (isAnyNull) {
             return null;
         }
