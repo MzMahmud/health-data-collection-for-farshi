@@ -2,10 +2,7 @@ package com.moazmahmud.spring_boot_thymeleaf.health_data.service;
 
 import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.NotFoundException;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.entity.HealthData;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.BloodPressure;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.HealthDataAddRequest;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.HealthDataSearchRequest;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.HealthDataSearchResponse;
+import com.moazmahmud.spring_boot_thymeleaf.health_data.model.*;
 import com.moazmahmud.spring_boot_thymeleaf.health_data.repository.HealthDataRepository;
 import com.moazmahmud.spring_boot_thymeleaf.utils.StringUtil;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +49,7 @@ public class HealthDataService {
         healthData.setPhysicalActivity(healthDataAddRequest.getPhysicalActivity());
         healthData.setCarbIntakeFrequency(healthDataAddRequest.getCarbIntakeFrequency());
         healthData.setCerealQuality(healthDataAddRequest.getCerealQuality());
+        updateDependentValues(healthData);
     }
 
     private HealthDataAddRequest getAddRequestFromEntity(HealthData healthData) {
@@ -119,7 +117,23 @@ public class HealthDataService {
         healthDataRepository.delete(healthData);
     }
 
+    @Transactional
+    protected void updateDependentValues(HealthData healthData) {
+        healthData.setBmi(HealthUtil.calculateBmi(healthData.getWeightInKg(), healthData.getHeightInInch()));
+        healthData.setBmiStatus(HealthUtil.getBmiStatus(healthData.getBmi()));
+        var bloodPressure = healthData.getBloodPressure();
+        var hypertensionStatus = HealthUtil.getHypertensionStatus(bloodPressure);
+        if (bloodPressure != null) {
+            bloodPressure.setHypertensionStatus(hypertensionStatus);
+        }
+    }
+
+    @Transactional
     public List<HealthData> updateDependentValues() {
-        return null;
+        return healthDataRepository
+                .findAll()
+                .stream()
+                .peek(this::updateDependentValues)
+                .collect(Collectors.toUnmodifiableList());
     }
 }
