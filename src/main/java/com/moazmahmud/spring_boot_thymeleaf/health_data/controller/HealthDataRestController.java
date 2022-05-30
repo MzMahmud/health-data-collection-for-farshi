@@ -42,4 +42,12 @@ public class HealthDataRestController extends BaseRestController {
                 .payload(healthDataService.getEntityList(searchRequest))
                 .build();
     }
+
+    @PutMapping("/update-dependent-values")
+    public RestResponse updateDependentValues() {
+        return RestResponse
+                .builder()
+                .payload(healthDataService.updateDependentValues())
+                .build();
+    }
 }

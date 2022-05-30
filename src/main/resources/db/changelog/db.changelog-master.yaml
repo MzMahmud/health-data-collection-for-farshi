@@ -12,3 +12,10 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/data/user_role_authority_ddl.sql
+
+  - changeSet:
+      id: health_data_add_dependent_data_columns
+      author: moaz
+      changes:
+        - sqlFile:
+            path: db/changelog/data/health_data_add_dependent_data_columns.sql

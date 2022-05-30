@@ -3,10 +3,7 @@ package com.moazmahmud.spring_boot_thymeleaf.health_data.entity;
 import com.moazmahmud.spring_boot_thymeleaf.common.classes.AuditableEntity;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Gender;
 import com.moazmahmud.spring_boot_thymeleaf.common.enums.Religion;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.BloodPressure;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.CarbIntakeFrequency;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.CerealQuality;
-import com.moazmahmud.spring_boot_thymeleaf.health_data.model.PhysicalActivity;
+import com.moazmahmud.spring_boot_thymeleaf.health_data.model.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ResultCheckStyle;
@@ -55,10 +52,18 @@ public class HealthData extends AuditableEntity {
     @Column(name = "weight_in_kg")
     private Double weightInKg;
 
+    @Column(name = "bmi")
+    private Double bmi;
+
+    @Column(name = "bmi_status")
+    @Enumerated(STRING)
+    private BmiStatus bmiStatus;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "systolicInMmHg", column = @Column(name = "blood_pressure_systolicInMmHg")),
-            @AttributeOverride(name = "diastolicInMmHg", column = @Column(name = "blood_pressure_diastolicInMmHg"))
+            @AttributeOverride(name = "diastolicInMmHg", column = @Column(name = "blood_pressure_diastolicInMmHg")),
+            @AttributeOverride(name = "hypertensionStatus", column = @Column(name = "hypertension_status"))
     })
     private BloodPressure bloodPressure;
 

@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Enumerated;
+
+import static javax.persistence.EnumType.STRING;
 
 @Embeddable
 @NoArgsConstructor
@@ -13,4 +16,6 @@ import javax.persistence.Embeddable;
 public class BloodPressure {
     private Double systolicInMmHg;
     private Double diastolicInMmHg;
+    @Enumerated(STRING)
+    private HypertensionStatus hypertensionStatus;
 }

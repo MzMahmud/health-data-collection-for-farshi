@@ -52,6 +52,7 @@ public class HealthDataService {
         healthData.setPhysicalActivity(healthDataAddRequest.getPhysicalActivity());
         healthData.setCarbIntakeFrequency(healthDataAddRequest.getCarbIntakeFrequency());
         healthData.setCerealQuality(healthDataAddRequest.getCerealQuality());
+        updateDependentValues(healthData);
     }
 
     private HealthDataAddRequest getAddRequestFromEntity(HealthData healthData) {
@@ -117,5 +118,25 @@ public class HealthDataService {
     public void delete(Long id) {
         var healthData = findById(id).orElseThrow(() -> new NotFoundException("No HealthData found with id=" + id));
         healthDataRepository.delete(healthData);
+    }
+
+    @Transactional
+    protected void updateDependentValues(HealthData healthData) {
+        healthData.setBmi(HealthUtil.calculateBmi(healthData.getWeightInKg(), healthData.getHeightInInch()));
+        healthData.setBmiStatus(HealthUtil.getBmiStatus(healthData.getBmi()));
+        var bloodPressure = healthData.getBloodPressure();
+        var hypertensionStatus = HealthUtil.getHypertensionStatus(bloodPressure);
+        if (bloodPressure != null) {
+            bloodPressure.setHypertensionStatus(hypertensionStatus);
+        }
+    }
+
+    @Transactional
+    public List<HealthData> updateDependentValues() {
+        return healthDataRepository
+                .findAll()
+                .stream()
+                .peek(this::updateDependentValues)
+                .collect(Collectors.toUnmodifiableList());
     }
 }
