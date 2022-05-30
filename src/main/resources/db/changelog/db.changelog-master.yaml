@@ -26,3 +26,10 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/data/health_data_add_created_modified_by.sql
+
+  - changeSet:
+      id: health_data_protik_ruposri_south_banasree
+      author: moaz
+      changes:
+        - sqlFile:
+            path: db/changelog/data/health_data_protik_ruposri_south_banasree.sql
