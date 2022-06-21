@@ -21,7 +21,7 @@ public class AppUserRestController extends BaseRestController {
 
     @PostMapping
     public ResponseEntity<RestResponse> saveAddRequest(@RequestBody AppUserAddRequest appUserAddRequest) {
-        var response = appUserService.saveAddRequest(appUserAddRequest);
+        var response = appUserService.addUser(appUserAddRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(RestResponse

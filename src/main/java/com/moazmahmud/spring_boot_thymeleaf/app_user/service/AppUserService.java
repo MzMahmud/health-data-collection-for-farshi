@@ -5,6 +5,7 @@ import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserAddRequest;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserResponse;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.repository.AppUserRepository;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.Authority;
+import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,7 +57,6 @@ public class AppUserService {
     }
 
     private void setEntityValueFromAddRequest(AppUserAddRequest addRequest, AppUser appUser) {
-        appUser.setId(addRequest.getId());
         appUser.setUsername(addRequest.getUsername());
         appUser.setPassword(passwordEncoder.encode(addRequest.getPassword()));
         appUser.setIsEnabled(true);
@@ -71,8 +71,12 @@ public class AppUserService {
     }
 
     @Transactional
-    public AppUserResponse saveAddRequest(AppUserAddRequest appUserAddRequest) {
-        var appUser = findById(appUserAddRequest.getId()).orElse(new AppUser());
+    public AppUserResponse addUser(AppUserAddRequest appUserAddRequest) {
+        var optionalAppUser = findByUsername(appUserAddRequest.getUsername());
+        if(optionalAppUser.isPresent()) {
+            throw new BadRequestException("username=" + appUserAddRequest.getUsername() + " already exists");
+        }
+        AppUser appUser = new AppUser();
         setEntityValueFromAddRequest(appUserAddRequest, appUser);
         return getAddRequestFromEntity(appUserRepository.save(appUser));
     }
