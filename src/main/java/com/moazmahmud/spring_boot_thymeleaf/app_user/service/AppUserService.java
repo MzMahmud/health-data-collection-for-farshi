@@ -1,10 +1,13 @@
 package com.moazmahmud.spring_boot_thymeleaf.app_user.service;
 
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.AppUser;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserAddRequest;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserResponse;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.repository.AppUserRepository;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Optional<AppUser> findByUsername(String username) {
@@ -41,5 +45,35 @@ public class AppUserService {
                       })
                       .flatMap(Collection::stream)
                       .collect(Collectors.toUnmodifiableSet());
+    }
+
+    @Transactional
+    public Optional<AppUser> findById(Long id) {
+        if (id == null) {
+            return Optional.empty();
+        }
+        return appUserRepository.findById(id);
+    }
+
+    private void setEntityValueFromAddRequest(AppUserAddRequest addRequest, AppUser appUser) {
+        appUser.setId(addRequest.getId());
+        appUser.setUsername(addRequest.getUsername());
+        appUser.setPassword(passwordEncoder.encode(addRequest.getPassword()));
+        appUser.setIsEnabled(true);
+    }
+
+    private AppUserResponse getAddRequestFromEntity(AppUser appUser) {
+        var response = new AppUserResponse();
+        response.setId(appUser.getId());
+        response.setUsername(appUser.getUsername());
+        response.setIsEnabled(appUser.getIsEnabled());
+        return response;
+    }
+
+    @Transactional
+    public AppUserResponse saveAddRequest(AppUserAddRequest appUserAddRequest) {
+        var appUser = findById(appUserAddRequest.getId()).orElse(new AppUser());
+        setEntityValueFromAddRequest(appUserAddRequest, appUser);
+        return getAddRequestFromEntity(appUserRepository.save(appUser));
     }
 }

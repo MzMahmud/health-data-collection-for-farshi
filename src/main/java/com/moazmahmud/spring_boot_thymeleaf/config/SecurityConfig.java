@@ -20,16 +20,12 @@ import static org.springframework.http.HttpMethod.*;
 public class SecurityConfig {
 
     private final AppUserDetailsService appUserDetailsService;
-
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public DaoAuthenticationProvider getAuthenticationProvider() {
         var daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(getPasswordEncoder());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         daoAuthenticationProvider.setUserDetailsService(appUserDetailsService);
         return daoAuthenticationProvider;
     }
@@ -38,7 +34,8 @@ public class SecurityConfig {
             "/login",
             "/css/**",
             "/images/**",
-            "/js/**"
+            "/js/**",
+            "/api/v1/app-user/**" // for testing
     };
 
     @Bean
