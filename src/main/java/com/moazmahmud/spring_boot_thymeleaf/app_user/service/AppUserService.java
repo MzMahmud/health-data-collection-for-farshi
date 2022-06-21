@@ -49,6 +49,7 @@ public class AppUserService {
     }
 
     @Transactional
+    @SuppressWarnings({"unused"})
     public Optional<AppUser> findById(Long id) {
         if (id == null) {
             return Optional.empty();
