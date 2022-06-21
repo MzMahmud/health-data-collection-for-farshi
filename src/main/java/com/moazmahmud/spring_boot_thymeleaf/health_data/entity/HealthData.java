@@ -61,8 +61,8 @@ public class HealthData extends AuditableEntity {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "systolicInMmHg", column = @Column(name = "blood_pressure_systolicInMmHg")),
-            @AttributeOverride(name = "diastolicInMmHg", column = @Column(name = "blood_pressure_diastolicInMmHg")),
+            @AttributeOverride(name = "systolicInMmHg", column = @Column(name = "blood_pressure_systolic_in_mm_hg")),
+            @AttributeOverride(name = "diastolicInMmHg", column = @Column(name = "blood_pressure_diastolic_in_mm_hg")),
             @AttributeOverride(name = "hypertensionStatus", column = @Column(name = "hypertension_status"))
     })
     private BloodPressure bloodPressure;
