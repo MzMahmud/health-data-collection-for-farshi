@@ -40,3 +40,10 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/data/health_data_agb_colony_motihjeel.sql
+
+  - changeSet:
+      id: app_user_roles_security
+      author: moaz
+      changes:
+        - sqlFile:
+            path: db/changelog/data/app_user_roles_security.sql
