@@ -1,20 +1,22 @@
 package com.moazmahmud.spring_boot_thymeleaf.app_user.service;
 
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.AppUser;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.Role;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserAddRequest;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserResponse;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserRolesAddRequest;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.repository.AppUserRepository;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.Authority;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.repository.RoleRepository;
 import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.BadRequestException;
+import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -74,11 +77,19 @@ public class AppUserService {
     @Transactional
     public AppUserResponse addUser(AppUserAddRequest appUserAddRequest) {
         var optionalAppUser = findByUsername(appUserAddRequest.getUsername());
-        if(optionalAppUser.isPresent()) {
+        if (optionalAppUser.isPresent()) {
             throw new BadRequestException("username=" + appUserAddRequest.getUsername() + " already exists");
         }
         AppUser appUser = new AppUser();
         setEntityValueFromAddRequest(appUserAddRequest, appUser);
         return getAddRequestFromEntity(appUserRepository.save(appUser));
+    }
+
+    @Transactional
+    public void giveUserRoles(AppUserRolesAddRequest appUserRolesAddRequest) {
+        var userId = appUserRolesAddRequest.getUserId();
+        var appUser = findById(userId).orElseThrow(() -> new NotFoundException("user with id=" + userId + " not found"));
+        var roles = roleService.findByIds(appUserRolesAddRequest.getRoleIds());
+        appUser.updateRoles(roles);
     }
 }
