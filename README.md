@@ -18,6 +18,6 @@ I deployed this project to heroku using `heroku cli`. I could not use heroku's `
 
 ### Rest of the git branches
 - `main` contains the `README.md` file you are reading.
-- `master` is needed to auto build and deploy in heroku cli.
+- `spring-boot-postgrace/prod-heroku` is needed to auto build and deploy from github.
 
 Other branches are `feature branch`. 
