@@ -34,4 +34,9 @@ public class AppUser {
             inverseJoinColumns = @JoinColumn(name = "roles_id")
     )
     private Set<Role> roles = new LinkedHashSet<>();
+
+    public void updateRoles(Set<Role> roles) {
+        this.roles.clear();
+        this.roles.addAll(roles);
+    }
 }
