@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>com.moazmahmud</groupId>
-    <artifactId>health-data-collection-for-farshi</artifactId>
+    <artifactId>health-data-collection</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>health-data-collection-for-farshi</name>
+    <name>health-data-collection</name>
     <description>This project is to collect health data for my wife, Umme Sabiha Farshi</description>
 
     <properties>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.10.0</version>
+            <version>4.11.0</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
