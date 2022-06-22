@@ -1,13 +1,12 @@
 package com.moazmahmud.spring_boot_thymeleaf.app_user.service;
 
 import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.AppUser;
-import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.Role;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.Authority;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserAddRequest;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserResponse;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserRolesAddRequest;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserRolesResponse;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.repository.AppUserRepository;
-import com.moazmahmud.spring_boot_thymeleaf.app_user.entity.Authority;
-import com.moazmahmud.spring_boot_thymeleaf.app_user.repository.RoleRepository;
 import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.BadRequestException;
 import com.moazmahmud.spring_boot_thymeleaf.common.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +34,14 @@ public class AppUserService {
             return Optional.empty();
         }
         return appUserRepository.findByUsername(username);
+    }
+
+    @Transactional
+    public Optional<AppUser> findWithRolesById(Long userId) {
+        if (userId == null) {
+            return Optional.empty();
+        }
+        return appUserRepository.findWithRolesById(userId);
     }
 
     @Transactional(readOnly = true)
@@ -91,5 +100,19 @@ public class AppUserService {
         var appUser = findById(userId).orElseThrow(() -> new NotFoundException("user with id=" + userId + " not found"));
         var roles = roleService.findByIds(appUserRolesAddRequest.getRoleIds());
         appUser.updateRoles(roles);
+    }
+
+    private AppUserRolesResponse getRolesResponseFromEntity(AppUser appUser) {
+        var response = new AppUserRolesResponse();
+        response.setUserId(appUser.getId());
+        response.setUsername(appUser.getUsername());
+        response.setRoles(roleService.getResponseListFromEntity(appUser.getRoles()));
+        return response;
+    }
+
+    public AppUserRolesResponse getUserRoles(Long userId) {
+        return findWithRolesById(userId)
+                .map(this::getRolesResponseFromEntity)
+                .orElseThrow(() -> new NotFoundException("user with id=" + userId + " not found"));
     }
 }

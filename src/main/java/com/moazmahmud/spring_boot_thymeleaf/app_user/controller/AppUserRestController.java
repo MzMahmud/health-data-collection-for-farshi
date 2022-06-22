@@ -2,6 +2,7 @@ package com.moazmahmud.spring_boot_thymeleaf.app_user.controller;
 
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserAddRequest;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserRolesAddRequest;
+import com.moazmahmud.spring_boot_thymeleaf.app_user.model.AppUserRolesResponse;
 import com.moazmahmud.spring_boot_thymeleaf.app_user.service.AppUserService;
 import com.moazmahmud.spring_boot_thymeleaf.common.classes.BaseRestController;
 import com.moazmahmud.spring_boot_thymeleaf.common.classes.RestResponse;
@@ -26,6 +27,17 @@ public class AppUserRestController extends BaseRestController {
                         .builder()
                         .payload(response)
                         .build());
+    }
+
+    @GetMapping("/{userId}/roles")
+    public RestResponse getUserRoles(
+            @PathVariable("userId") Long userId
+    ) {
+        var appUserRolesResponse = appUserService.getUserRoles(userId);
+        return RestResponse
+                .builder()
+                .payload(appUserRolesResponse)
+                .build();
     }
 
     @PostMapping("/{userId}/roles")
