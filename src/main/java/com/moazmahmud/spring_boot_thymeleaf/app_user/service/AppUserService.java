@@ -61,7 +61,6 @@ public class AppUserService {
     }
 
     @Transactional
-    @SuppressWarnings({"unused"})
     public Optional<AppUser> findById(Long id) {
         if (id == null) {
             return Optional.empty();
@@ -95,11 +94,12 @@ public class AppUserService {
     }
 
     @Transactional
-    public void giveUserRoles(AppUserRolesAddRequest appUserRolesAddRequest) {
+    public AppUserRolesResponse giveUserRoles(AppUserRolesAddRequest appUserRolesAddRequest) {
         var userId = appUserRolesAddRequest.getUserId();
         var appUser = findById(userId).orElseThrow(() -> new NotFoundException("user with id=" + userId + " not found"));
         var roles = roleService.findByIds(appUserRolesAddRequest.getRoleIds());
         appUser.updateRoles(roles);
+        return getRolesResponseFromEntity(appUser);
     }
 
     private AppUserRolesResponse getRolesResponseFromEntity(AppUser appUser) {

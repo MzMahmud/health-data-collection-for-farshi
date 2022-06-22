@@ -45,7 +45,10 @@ public class AppUserRestController extends BaseRestController {
             @RequestBody AppUserRolesAddRequest appUserRolesAddRequest
     ) {
         appUserRolesAddRequest.setUserId(userId);
-        appUserService.giveUserRoles(appUserRolesAddRequest);
-        return RestResponse.builder().build();
+        var appUserRolesResponse = appUserService.giveUserRoles(appUserRolesAddRequest);
+        return RestResponse
+                .builder()
+                .payload(appUserRolesResponse)
+                .build();
     }
 }
