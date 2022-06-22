@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/spring_boot_thymeleaf
+    url: jdbc:postgresql://localhost:5432/health_data_collection
     username: postgres
     password: 123456
   jpa:
