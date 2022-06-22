@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public enum Religion implements TextGettable {
     ISLAM("Islam"),
     HINDUISM("Hinduism"),
-    CHRISTIANITY("Cristianity"),
+    CHRISTIANITY("Christianity"),
     BUDDHISM("Buddhism"),
     OTHER("Other"),
     PREFER_NOT_TO_TELL("Prefer Not to Tell"),
