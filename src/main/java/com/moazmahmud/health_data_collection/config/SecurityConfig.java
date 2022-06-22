@@ -63,6 +63,8 @@ public class SecurityConfig {
             .and()
             .formLogin()
             .and()
+            .rememberMe()
+            .and()
             .headers()
             .xssProtection();
         return http.build();
